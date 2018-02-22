@@ -13,14 +13,22 @@ func fraction(numbers: [Int], isIncluded: (Int) -> Bool) -> Double {
     return Double(includedNumbers.count) / Double(numbers.count)
 }
 
+extension Double {
+    mutating func roundToPlaces(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return Darwin.round(self * divisor) / divisor
+    }
+}
+
 // number of elements
 let n = Int(readLine()!)!
 
 // read array and map the elements to integer
 let arr = readLine()!.components(separatedBy: " ").map{ Int($0)! }
 
-let positive = fraction(numbers: arr) { $0 > 0 }
-let negative = fraction(numbers: arr) { $0 < 0 }
-let zero = fraction(numbers: arr) { $0 == 0 }
+var positive = fraction(numbers: arr) { $0 > 0 }
+var negative = fraction(numbers: arr) { $0 < 0 }
+var zero = fraction(numbers: arr) { $0 == 0 }
 
-print(positive, negative, zero, separator: "\n")
+print(positive.roundToPlaces(places: 6), negative.roundToPlaces(places: 6), zero.roundToPlaces(places: 6), separator: "\n")
+
