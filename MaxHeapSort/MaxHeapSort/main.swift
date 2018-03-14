@@ -48,7 +48,7 @@ func shiftDown(arr:[Int], p:Int) -> [Int] {
     return array
 }
 
-let array = [6, 2, 4, 9, 7, 5, 8]
+let array = [5, 13, 2, 25, 7, 17, 20, 8, 4]
 
 print(array)
 heapify(arr: array)
