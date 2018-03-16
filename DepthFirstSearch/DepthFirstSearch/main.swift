@@ -37,12 +37,20 @@ struct Stack<Int> {
     }
 }
 
-let vertexList = [0, 1, 2, 3, 4, 5, 6]
-let edgeList = [[0, 1], [0, 2], [1, 0], [1, 3], [2, 0], [2, 4], [2, 5], [3, 1], [4, 2], [4, 6], [5, 2], [6, 4]]
-var adjecencyList = [[Int]](repeating: Array(repeating: 0,count: 0), count: vertexList.count)
+//let vertexList = [0, 1, 2, 3, 4, 5, 6]
+//let edgeList = [[0, 1], [0, 2], [1, 0], [1, 3], [2, 0], [2, 4], [2, 5], [3, 1], [4, 2], [4, 6], [5, 2], [6, 4]]
+
+let vertexList = [9, 7, 1, 5, 8, 2, 3, 4]
+let edgeList = [[9, 7], [9, 1], [7, 9], [7, 5], [5, 7], [1, 9], [1, 8], [1, 2], [8, 1], [8, 3], [8, 4], [3, 8], [4, 8], [2, 1]]
+
+var adjecencyList:[Int:[Int]] = [Int:[Int]]()
 
 for edge in edgeList {
-    adjecencyList[edge[0]].append(edge[1])
+    if adjecencyList[edge[0]] == nil {
+        adjecencyList[edge[0]] = [edge[1]]
+    } else {
+        adjecencyList[edge[0]]?.append(edge[1])
+    }
 }
 
 var visitedVertex = [Int]()
@@ -59,7 +67,9 @@ while stack.isEmpty() == false{
         break
     }
     
-    for adjecency in adjecencyList[current!] {
+    let edge = adjecencyList[current!]
+    
+    for adjecency in edge! {
         if visitedVertex.contains(adjecency) == false {
             stack.push(adjecency)
         }
