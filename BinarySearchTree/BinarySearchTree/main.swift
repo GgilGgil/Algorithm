@@ -16,6 +16,7 @@ class node<T:Equatable> {
 
 class binarySearchTree<T:Equatable> {
     var head = node<T>()
+    var orderList:[Int] = [Int]()
     
     func add(value:Int) {
         if head.value == nil {
@@ -25,7 +26,7 @@ class binarySearchTree<T:Equatable> {
         }
     }
     
-    func addNode(currentNode:node<T>, value:Int) {
+    private func addNode(currentNode:node<T>, value:Int) {
         if currentNode.value! >= value {
             if currentNode.left != nil {
                 addNode(currentNode: currentNode.left!, value: value)
@@ -53,7 +54,7 @@ class binarySearchTree<T:Equatable> {
         }
     }
     
-    func searchNode(currentNode:node<T>, value:Int) -> Bool {
+    private func searchNode(currentNode:node<T>, value:Int) -> Bool {
         if currentNode.value == value {
             return true
         } else {
@@ -99,7 +100,7 @@ class binarySearchTree<T:Equatable> {
         }
     }
     
-    func _remove(parent:node<T>, currentNode:node<T>?, value:Int) {
+    private func _remove(parent:node<T>, currentNode:node<T>?, value:Int) {
         if currentNode == nil {
             print ("There is no \(value) ")
             return
@@ -136,7 +137,7 @@ class binarySearchTree<T:Equatable> {
         }
     }
     
-    func mostLeftValueFromRightNode(currentNode:node<T>?) -> node<T>? {
+    private func mostLeftValueFromRightNode(currentNode:node<T>?) -> node<T>? {
         if currentNode?.left == nil {
             return currentNode
         } else {
@@ -144,7 +145,7 @@ class binarySearchTree<T:Equatable> {
         }
     }
     
-    func removeNode(parent:node<T>?, currentNode:node<T>?, value:Int) {
+    private func removeNode(parent:node<T>?, currentNode:node<T>?, value:Int) {
         if currentNode?.value == value {
             if parent?.left?.value == currentNode?.value {
                 parent?.left = nil
@@ -159,21 +160,106 @@ class binarySearchTree<T:Equatable> {
             }
         }
     }
+    
+    func preorderTraverse() {
+        
+        if head.value != nil {
+            _preorderTraverse(currentNode: head)
+        }
+        
+        printOrderList()
+    }
+    
+    private func _preorderTraverse(currentNode:node<T>?) {
+        
+        if currentNode?.value != nil {
+            orderList.append((currentNode?.value)!)
+        }
+        
+        if currentNode?.left != nil {
+            _preorderTraverse(currentNode: currentNode?.left)
+        }
+        
+        if currentNode?.right != nil {
+           _preorderTraverse(currentNode: currentNode?.right)
+        }
+    }
+    
+    func inorderTraverse() {
+        
+        if head.value != nil {
+            _inorderTraverse(currentNode: head)
+        }
+        
+        printOrderList()
+    }
+    
+    private func _inorderTraverse(currentNode:node<T>?) {
+        if currentNode?.left != nil {
+            _inorderTraverse(currentNode: currentNode?.left)
+        }
+        
+        if currentNode?.value != nil {
+            orderList.append((currentNode?.value)!)
+        }
+        
+        if currentNode?.right != nil {
+            _inorderTraverse(currentNode: currentNode?.right)
+        }
+    }
+    
+    func postorderTraverse() {
+        
+        if head.value != nil {
+            _postorderTraverse(currentNode: head)
+        }
+        
+        printOrderList()
+    }
+    
+    private func _postorderTraverse(currentNode:node<T>?) {
+        if currentNode?.left != nil {
+            _postorderTraverse(currentNode: currentNode?.left)
+        }
+        
+        if currentNode?.right != nil {
+            _postorderTraverse(currentNode: currentNode?.right)
+        }
+        
+        if currentNode?.value != nil {
+            orderList.append((currentNode?.value)!)
+        }
+    }
+    
+    private func printOrderList() {
+        print(orderList)
+        orderList.removeAll()
+    }
 }
 
 var bst = binarySearchTree<Int>()
-bst.add(value: 27)
-bst.add(value: 14)
-bst.add(value: 35)
-bst.add(value: 10)
-bst.add(value: 19)
-bst.add(value: 31)
-bst.add(value: 42)
+//bst.add(value: 27)
+//bst.add(value: 14)
+//bst.add(value: 35)
+//bst.add(value: 10)
+//bst.add(value: 19)
+//bst.add(value: 31)
+//bst.add(value: 42)
+//
+//print(bst.search(value: 27))
+//print(bst.search(value: 15))
+//print(bst.search(value: 31))
+//
+//bst.remove(value: 31)
+//
+//print(bst.search(value: 31))
 
-print(bst.search(value: 27))
-print(bst.search(value: 15))
-print(bst.search(value: 31))
+bst.add(value: 5)
+bst.add(value: 3)
+bst.add(value: 7)
+bst.add(value: 1)
+bst.add(value: 4)
 
-bst.remove(value: 31)
-
-print(bst.search(value: 31))
+bst.preorderTraverse()
+bst.inorderTraverse()
+bst.postorderTraverse()
