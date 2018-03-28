@@ -37,19 +37,24 @@ struct stack<Int> {
     }
 }
 
-var collection = stack<Int>()
+var aa = "abc"
 
-collection.push(10)
-collection.push(11)
-collection.push(12)
-collection.push(13)
-collection.push(14)
-collection.push(15)
+var aaa = Array(aa)
+print(aaa)
+//var collection = stack<Int>()
+//
+//collection.push(10)
+//collection.push(11)
+//collection.push(12)
+//collection.push(13)
+//collection.push(14)
+//collection.push(15)
+//
+//print(collection)
+//
+//print(collection.pop())
+//
+//print(collection.peek())
+//
+//print(collection.isEmpty())
 
-print(collection)
-
-print(collection.pop())
-
-print(collection.peek())
-
-print(collection.isEmpty())
